@@ -7,8 +7,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-
-	"github.com/zondax/hid"
 )
 
 const (
@@ -229,34 +227,36 @@ func (n *NanoS) SignTxn(txn []byte) (sig [signatureSize]byte, err error) {
 
 // OpenNanoS start process
 func OpenNanoS() (*NanoS, error) {
-	const (
-		ledgerVendorID = 0x2c97
-		// new device ID for firmware 1.6.0
-		ledgerNanoSProductID = 0x1011
-		// ledgerNanoSProductID = 0x0001
-		//ledgerUsageID        = 0xffa0
-	)
+	// const (
+	// 	ledgerVendorID = 0x2c97
+	// 	// new device ID for firmware 1.6.0
+	// 	ledgerNanoSProductID = 0x1011
+	// 	// ledgerNanoSProductID = 0x0001
+	// 	//ledgerUsageID        = 0xffa0
+	// )
 
-	// search for Nano S
-	devices := hid.Enumerate(ledgerVendorID, ledgerNanoSProductID)
-	if len(devices) == 0 {
-		return nil, errors.New("Nano S not detected")
-	} else if len(devices) > 1 {
-		return nil, errors.New("Unexpected error -- Is the one wallet app running?")
-	}
+	// // search for Nano S
+	// devices := hid.Enumerate(ledgerVendorID, ledgerNanoSProductID)
+	// if len(devices) == 0 {
+	// 	return nil, errors.New("Nano S not detected")
+	// } else if len(devices) > 1 {
+	// 	return nil, errors.New("Unexpected error -- Is the one wallet app running?")
+	// }
 
-	// open the device
-	device, err := devices[0].Open()
-	if err != nil {
-		return nil, err
-	}
+	// // open the device
+	// device, err := devices[0].Open()
+	// if err != nil {
+	// 	return nil, err
+	// }
 
-	// wrap raw device I/O in HID+APDU protocols
-	return &NanoS{
-		device: &apduFramer{
-			hf: &hidFramer{
-				rw: device,
-			},
-		},
-	}, nil
+	// // wrap raw device I/O in HID+APDU protocols
+	// return &NanoS{
+	// 	device: &apduFramer{
+	// 		hf: &hidFramer{
+	// 			rw: device,
+	// 		},
+	// 	},
+	// }, nil
+
+	return nil, errors.New("Not supported")
 }
